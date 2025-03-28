@@ -47,7 +47,7 @@ const router = createRouter({
         {
           path: 'user',
           name: 'user_index',
-          component: () => import('@/views/dashboard/examples/user/Index.vue'),
+          component: () => import('@/views/dashboard/user/Index.vue'),
           meta: {
             title: 'User',
           } as RouteMeta & IRouteMeta
