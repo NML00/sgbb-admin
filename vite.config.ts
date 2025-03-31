@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     root: rootDir,
-    base: '/',
+    base: '/sgbb-admin/',
     appType: 'spa',
     plugins: [
       vue(),
