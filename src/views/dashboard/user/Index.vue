@@ -25,7 +25,14 @@ import Avatar from '@/components/ui/avatar/Avatar.vue'
 import AvatarImage from '@/components/ui/avatar/AvatarImage.vue'
 
 const users = ref([
-  { name: 'mitchell', diamond: 32000, img: logo, lastActive: new Date().toDateString(), rank: 'Silver', id: '698987' }
+  {
+    name: 'Mitchell Hudson',
+    diamond: 32000,
+    img: logo,
+    lastActive: new Date().toDateString(),
+    rank: 'Silver',
+    id: '698987'
+  }
 ])
 
 const columns: ColumnDef<any>[] = [
@@ -36,7 +43,10 @@ const columns: ColumnDef<any>[] = [
       h('div', { class: 'flex gap-2' }, [
         h(Avatar, {}, h(AvatarImage, { src: row.original.img })),
         h('div', {}, [
-          h('div', {}, row.original.name),
+          h('div', {}, [
+            h('span', {}, row.original.name),
+            h('span', { class: 'text-muted-foreground white-space-pre' }, ` #${row.original.id}`)
+          ]),
           h('div', {}, row.original.rank)
         ])
       ])
@@ -50,6 +60,11 @@ const columns: ColumnDef<any>[] = [
     accessorKey: 'diamond',
     header: 'Diamond',
     cell: ({ row }) => h('div', {}, row.original.diamond)
+  },
+  {
+    accessorKey: 'action',
+    header: 'Action',
+    cell: ({ row }) => h('div', {}, 'Block')
   }
 ]
 </script>

@@ -9,7 +9,7 @@
     "email": "faturachmanputro@gmail.com"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --base /",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",

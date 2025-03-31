@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, type RouteMeta } from 'vue-router'
-import DashboardLayoutVue from '@/layouts/dashboard.vue';
+import DashboardLayoutVue from '@/layouts/dashboard.vue'
 
 interface IRouteMeta {
   title: string
@@ -10,38 +10,38 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/dashboard/home',
+      redirect: '/dashboard/money'
     },
     {
       path: '/login',
       name: 'login',
       component: () => import('@/views/Login.vue'),
       meta: {
-        title: 'Login',
-      } as RouteMeta & IRouteMeta,
+        title: 'Login'
+      } as RouteMeta & IRouteMeta
     },
     {
       path: '/dashboard',
       component: DashboardLayoutVue,
-      redirect: '/dashboard/home',
+      redirect: '/dashboard/money',
       meta: {
-        title: 'Dashboard',
+        title: 'Dashboard'
       },
       children: [
-        {
-          path: 'home',
-          name: 'home',
-          component: () => import('@/views/dashboard/examples/Home.vue'),
-          meta: {
-            title: 'Home',
-          } as RouteMeta & IRouteMeta
-        },
+        // {
+        //   path: 'home',
+        //   name: 'home',
+        //   component: () => import('@/views/dashboard/examples/Home.vue'),
+        //   meta: {
+        //     title: 'Home'
+        //   } as RouteMeta & IRouteMeta
+        // },
         {
           path: 'task',
           name: 'tasks_index',
           component: () => import('@/views/dashboard/examples/tasks/Index.vue'),
           meta: {
-            title: 'Tasks',
+            title: 'Tasks'
           } as RouteMeta & IRouteMeta
         },
         {
@@ -49,7 +49,7 @@ const router = createRouter({
           name: 'user_index',
           component: () => import('@/views/dashboard/user/Index.vue'),
           meta: {
-            title: 'User',
+            title: 'User'
           } as RouteMeta & IRouteMeta
         },
         {
@@ -57,24 +57,32 @@ const router = createRouter({
           name: 'settings_index',
           component: () => import('@/views/dashboard/examples/settings/Index.vue'),
           meta: {
-            title: 'Settings',
+            title: 'Settings'
           } as RouteMeta & IRouteMeta
         },
-      ],
+        {
+          path: 'money',
+          name: 'money_index',
+          component: () => import('@/views/dashboard/MoneyOrder.vue'),
+          meta: {
+            title: 'Money'
+          } as RouteMeta & IRouteMeta
+        }
+      ]
     },
     {
       path: '/:pathMatch(.*)',
       name: 'not-found',
       component: () => import('@/views/404.vue'),
       meta: {
-        title: 'Page Not Found',
-      } as RouteMeta & IRouteMeta,
-    },
+        title: 'Page Not Found'
+      } as RouteMeta & IRouteMeta
+    }
   ]
-});
+})
 
 router.beforeEach((loc) => {
-  document.title = loc.meta.title as string;
+  document.title = loc.meta.title as string
 })
 
 export default router

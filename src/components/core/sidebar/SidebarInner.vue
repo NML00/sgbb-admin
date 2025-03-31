@@ -122,7 +122,7 @@ const toggleSidebar = () => {
               </li>
             </ul>
           </div>
-          <div class="border-b-[1px] transition-all" :class="store.sidebarExpanded ? 'p-4' : 'p-2'">
+          <!-- <div class="border-b-[1px] transition-all" :class="store.sidebarExpanded ? 'p-4' : 'p-2'">
             <p
               v-show="store.sidebarExpanded"
               class="uppercase text-xs font-light text-gray-400 mb-2 tracking-widest transition-all duration-300 delay-100"
@@ -186,7 +186,7 @@ const toggleSidebar = () => {
                 </TooltipProvider>
               </li>
             </ul>
-          </div>
+          </div> -->
         </ScrollArea>
       </div>
 
