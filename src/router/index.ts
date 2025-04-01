@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, type RouteMeta } from 'vue-router'
 import DashboardLayoutVue from '@/layouts/dashboard.vue'
+import { useAuthStore } from '@/stores/auth'
 
 interface IRouteMeta {
   title: string
@@ -17,7 +18,8 @@ const router = createRouter({
       name: 'login',
       component: () => import('@/views/Login.vue'),
       meta: {
-        title: 'Login'
+        title: 'Login',
+        guest: true
       } as RouteMeta & IRouteMeta
     },
     {
@@ -25,7 +27,8 @@ const router = createRouter({
       component: DashboardLayoutVue,
       redirect: '/dashboard/money',
       meta: {
-        title: 'Dashboard'
+        title: 'Dashboard',
+        authRequired: true
       },
       children: [
         // {
@@ -36,14 +39,14 @@ const router = createRouter({
         //     title: 'Home'
         //   } as RouteMeta & IRouteMeta
         // },
-        {
-          path: 'task',
-          name: 'tasks_index',
-          component: () => import('@/views/dashboard/examples/tasks/Index.vue'),
-          meta: {
-            title: 'Tasks'
-          } as RouteMeta & IRouteMeta
-        },
+        // {
+        //   path: 'task',
+        //   name: 'tasks_index',
+        //   component: () => import('@/views/dashboard/examples/tasks/Index.vue'),
+        //   meta: {
+        //     title: 'Tasks'
+        //   } as RouteMeta & IRouteMeta
+        // },
         {
           path: 'user',
           name: 'user_index',
@@ -52,14 +55,14 @@ const router = createRouter({
             title: 'User'
           } as RouteMeta & IRouteMeta
         },
-        {
-          path: 'settings',
-          name: 'settings_index',
-          component: () => import('@/views/dashboard/examples/settings/Index.vue'),
-          meta: {
-            title: 'Settings'
-          } as RouteMeta & IRouteMeta
-        },
+        // {
+        //   path: 'settings',
+        //   name: 'settings_index',
+        //   component: () => import('@/views/dashboard/examples/settings/Index.vue'),
+        //   meta: {
+        //     title: 'Settings'
+        //   } as RouteMeta & IRouteMeta
+        // },
         {
           path: 'money',
           name: 'money_index',
@@ -81,8 +84,16 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((loc) => {
+router.beforeEach((loc,_,next) => {
   document.title = loc.meta.title as string
+  const authStore = useAuthStore();
+  if(loc.meta.authRequired && !authStore.isLogin) {
+    return next('/login')
+  }
+  if(loc.meta.guest && authStore.isLogin) {
+    return next('/dashboard')
+  } 
+  next()
 })
 
 export default router

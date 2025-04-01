@@ -1,26 +1,35 @@
 <script setup lang="ts">
-import { useForm } from 'vee-validate';
-import { toTypedSchema } from '@vee-validate/zod';
-import * as z from 'zod';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { useForm } from 'vee-validate'
+import { toTypedSchema } from '@vee-validate/zod'
+import * as z from 'zod'
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
-import { FormControl, FormField, FormLabel, FormItem } from '@/components/ui/form';
+import { FormControl, FormField, FormLabel, FormItem } from '@/components/ui/form'
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
 
-const formSchema = toTypedSchema(z.object({
-  password: z.string().min(8),
-  email: z.string().email(),
-}));
+const formSchema = toTypedSchema(
+  z.object({
+    password: z.string().min(6).default('admin1@BBG'),
+    email: z.string().email().default('admin1@gmail.com')
+  })
+)
 
 const form = useForm({
-  validationSchema: formSchema,
-});
+  validationSchema: formSchema
+})
 
-const onSubmit = form.handleSubmit((val) => {
-  console.log(val);
-});
+const authStore = useAuthStore()
+const router = useRouter()
+const onSubmit = form.handleSubmit(async (val) => {
+  const data = await authStore.loginEmail(val)
+  if(data.value.status === 200) {
+    router.push('/')
+  }
+})
 </script>
 
 <template>
@@ -63,18 +72,12 @@ const onSubmit = form.handleSubmit((val) => {
               <span class="w-full border-t" />
             </div>
             <div class="relative flex justify-center text-xs uppercase">
-              <span class="bg-background px-2 text-muted-foreground">
-                Or continue with
-              </span>
+              <span class="bg-background px-2 text-muted-foreground"> Or continue with </span>
             </div>
           </div>
           <div class="grid gap-4 grid-cols-2">
-            <Button variant="outline" prepend-icon="GithubIcon" class="w-full">
-              Github
-            </Button>
-            <Button variant="outline" prepend-icon="Gitlab" class="w-full">
-              Gitlab
-            </Button>
+            <Button variant="outline" prepend-icon="GithubIcon" class="w-full"> Github </Button>
+            <Button variant="outline" prepend-icon="Gitlab" class="w-full"> Gitlab </Button>
           </div>
         </div>
       </CardFooter>
