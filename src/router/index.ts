@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, type RouteMeta } from 'vue-router'
+import { createRouter, createWebHashHistory, type RouteMeta } from 'vue-router'
 import DashboardLayoutVue from '@/layouts/dashboard.vue'
 import { useAuthStore } from '@/stores/auth'
 
@@ -7,7 +7,7 @@ interface IRouteMeta {
 }
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
