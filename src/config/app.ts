@@ -5,6 +5,10 @@ interface IDashboardMenus {
   description?: string
   hidden?: boolean
 }
+export type PaginationParams = {
+  page: number
+  limit: number
+}
 
 export const SIDEBAR_EXPAND_WIDTH = 280
 export const SIDEBAR_COLLAPSED_WIDTH = 72

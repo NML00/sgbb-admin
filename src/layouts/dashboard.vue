@@ -3,10 +3,13 @@ import DashboardSidebar from '@/components/core/sidebar/DashboardSidebar.vue'
 import DashboardNavbar from '@/components/core/DashboardNavbar.vue'
 import { useAppStore } from '@/stores/app'
 import { useBalanceStore } from '@/stores/balance'
+import { useUserStore } from '@/stores/user'
 
 const store = useAppStore()
 const balanceStore = useBalanceStore()
-balanceStore.getTransactionList({})
+const userStore = useUserStore()
+userStore.getUserList();
+balanceStore.getTransactionList()
 </script>
 
 <template>

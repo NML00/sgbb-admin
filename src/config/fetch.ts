@@ -27,3 +27,17 @@ export const useMyFetch = createFetch({
     mode: 'cors'
   }
 })
+
+export type Response<T> = {
+  message: string
+  status: number
+  metaData: T
+}
+
+export type ListData<T> = {
+  results: Array<T>
+  page: number
+  limit: number
+  totalPages: number
+  totalResults: number
+}
