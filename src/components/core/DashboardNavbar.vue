@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import GlobalSearchPopover from '@/components/core/GlobalSearchPopover.vue';
-import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import GlobalSearchPopover from '@/components/core/GlobalSearchPopover.vue'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,29 +8,28 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import Breadcrumb from '@/components/ui/Breadcrumb.vue';
-import {
-  LogOut,
-  User,
-  Bell,
-  Sun,
-  MoonStar,
-  Menu,
-} from 'lucide-vue-next'
-import { Button } from '@/components/ui/button';
-import { useAppStore } from '@/stores/app';
+import Breadcrumb from '@/components/ui/Breadcrumb.vue'
+import { LogOut, User, Bell, Sun, MoonStar, Menu } from 'lucide-vue-next'
+import { Button } from '@/components/ui/button'
+import { useAppStore } from '@/stores/app'
+import { useAuthStore } from '@/stores/auth'
 
-const store = useAppStore();
+const store = useAppStore()
 
 const toggleMode = () => {
-  store.toggleTheme();
-};
+  store.toggleTheme()
+}
+
+const authStore = useAuthStore()
 </script>
 
 <template>
-  <nav class="flex items-center justify-between h-[64px] border-b-[1px] px-4 fixed z-40 top-0 bg-background/80 backdrop-blur-lg border-b border-border" :style="{ width: store.navWidth }">
+  <nav
+    class="flex items-center justify-between h-[64px] border-b-[1px] px-4 fixed z-40 top-0 bg-background/80 backdrop-blur-lg border-b border-border"
+    :style="{ width: store.navWidth }"
+  >
     <div class="w-24 hidden lg:block">
       <Breadcrumb />
     </div>
@@ -56,7 +55,10 @@ const toggleMode = () => {
       <div class="border-x-[1px] border-gray-300 h-[24px] w-[1px] mx-2"></div>
       <DropdownMenu>
         <DropdownMenuTrigger as-child>
-          <Button variant="outline" class="border-0 flex items-center max-w-[200px] w-full justify-start">
+          <Button
+            variant="outline"
+            class="border-0 flex items-center max-w-[200px] w-full justify-start"
+          >
             <Avatar class="h-8 w-8">
               <AvatarImage src="https://github.com/radix-vue.png"></AvatarImage>
             </Avatar>
@@ -74,7 +76,7 @@ const toggleMode = () => {
             <span>Profile</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem class="cursor-pointer" @click="authStore.logout()">
             <LogOut class="mr-2 h-4 w-4" />
             <span>Log out</span>
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

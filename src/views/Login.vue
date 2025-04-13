@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
-import { FormControl, FormField, FormLabel, FormItem } from '@/components/ui/form'
+import { FormControl, FormField, FormLabel, FormItem, FormMessage } from '@/components/ui/form'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 
@@ -26,7 +26,7 @@ const authStore = useAuthStore()
 const router = useRouter()
 const onSubmit = form.handleSubmit(async (val) => {
   const data = await authStore.loginEmail(val)
-  if(data.value.status === 200) {
+  if (data.value.status === 200) {
     router.push('/')
   }
 })
@@ -38,7 +38,7 @@ const onSubmit = form.handleSubmit(async (val) => {
       <CardHeader>
         <CardTitle class="text-center">Login</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent class="pb-0">
         <form @submit="onSubmit">
           <FormField v-slot="{ componentField }" name="email">
             <FormItem class="mb-4">
@@ -58,15 +58,15 @@ const onSubmit = form.handleSubmit(async (val) => {
               <FormMessage />
             </FormItem>
           </FormField>
-          <div class="flex items-center space-x-2 mt-4">
+          <div class="flex items-center space-x-2 my-4">
             <Checkbox id="terms" />
             <Label for="terms">Remember Me</Label>
           </div>
+          <Button class="w-full" type="submit">Login</Button>
         </form>
       </CardContent>
       <CardFooter>
         <div class="w-full">
-          <Button class="w-full" @click="onSubmit">Login</Button>
           <div class="relative my-4">
             <div class="absolute inset-0 flex items-center">
               <span class="w-full border-t" />
