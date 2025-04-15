@@ -1,12 +1,12 @@
 <template>
   <div>
     <page-header title="Users"> </page-header>
-    <div class="flex py-4">
+    <!-- <div class="flex py-4">
       <label class="py-">
         Users Name
         <Input prependIcon="User" />
       </label>
-    </div>
+    </div> -->
     <DataTable :columns="columns" :data="userList" />
   </div>
 </template>
