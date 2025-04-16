@@ -32,11 +32,14 @@ import VerifyOrderModal from './VerifyOrderModal.vue'
 const balanceParams = ref({
   page: 1,
   limit: 10,
-  type: 'deposit'
+  type: 'deposit',
+  sortBy: 'status:asc'
 })
 const apiRoute = 'balance'
-const query = new URLSearchParams(balanceParams.value as any).toString()
-const fullApiRoute = `${apiRoute}?${query}`
+const fullApiRoute = computed(() => {
+  const query = new URLSearchParams(balanceParams.value as any).toString()
+  return `${apiRoute}?${query}`
+})
 
 const { data, isFetching: pending } = useMyFetch(fullApiRoute, { refetch: true }).json<
   Response<ListData<BalanceOrder>>
@@ -54,7 +57,7 @@ const depositList = computed(() => {
     <CardContent>
       <div class="mt-4">
         <div class="border rounded">
-          <Table class="">
+          <Table class="" :loading="pending">
             <TableCaption>
               <div>Đây là các lệnh nạp trong hệ thống</div>
             </TableCaption>
