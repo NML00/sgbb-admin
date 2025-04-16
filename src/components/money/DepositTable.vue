@@ -98,7 +98,7 @@ const depositList = computed(() => {
                 <TableCell class="break-words max-w-[100px]">
                   {{ entry.transaction }}
                 </TableCell>
-                <TableCell>
+                <TableCell class="uppercase font-bold">
                   {{ entry.status }}
                 </TableCell>
                 <TableCell class="text-right">

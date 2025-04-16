@@ -13,6 +13,29 @@ import { computed, ref, watch } from 'vue'
 import { formateDate, truncateNumber } from '@/lib/utils'
 import { Button } from '../ui/button'
 
+const mockResponse = {
+  message: 'Approve transaction successfully!',
+  status: 200,
+  metaData: {
+    updateTransaction: {
+      userId: '1911171',
+      received: null,
+      type: 'deposit',
+      transaction: 'b113ade273404ea1c978f781248cd96c4c6b9d8a',
+      amount: 200,
+      amount_vnd: 200000,
+      comment: '1911171',
+      status: 'Success',
+      fee: 0,
+      createdAt: '2025-04-06T12:11:11.155Z',
+      id: '67ff2fd32b95d3e5c83bb077'
+    },
+    updatedVipData: {
+      currentVipLevel: 0,
+      remainingRecharge: 800
+    }
+  }
+}
 const props = defineProps<{
   order: BalanceOrder
 }>()
@@ -30,10 +53,9 @@ const {
 const open = ref()
 watch(data, () => {
   console.log('Here is', data)
-  if (data.value?.code === 200) {
+  if (data.value?.status === 200) {
     open.value = false
   }
-
 })
 </script>
 

@@ -18,8 +18,12 @@ export const useMyFetch = createFetch({
     updateDataOnError: true,
     onFetchError(ctx) {
       console.log('ERR', ctx)
-      if (ctx.response?.status === 401) {
-        useAuthStore().logout()
+      if (ctx.response) {
+        if (ctx.response.status === 401) {
+          useAuthStore().logout()
+          return ctx
+        }
+        if (ctx.data.message?.length && ctx.data.message.length > 0) toast.error(ctx.data.message)
       }
       return ctx
     },
