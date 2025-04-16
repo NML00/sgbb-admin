@@ -23,7 +23,11 @@ export const useMyFetch = createFetch({
           useAuthStore().logout()
           return ctx
         }
-        if (ctx.data.message?.length && ctx.data.message.length > 0) toast.error(ctx.data.message)
+        if (ctx.data.message?.length && ctx.data.message.length > 0) {
+          toast.error(ctx.data.message)
+        } else if (ctx.error) {
+          toast.error(ctx.error)
+        }
       }
       return ctx
     },
