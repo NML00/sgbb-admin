@@ -1,6 +1,7 @@
 import { useAuthStore } from '@/stores/auth'
 import { createFetch } from '@vueuse/core'
 import { useCookies } from '@vueuse/integrations/useCookies'
+import { toast } from 'vue3-toastify'
 
 const cookies = useCookies()
 const baseUrl = import.meta.env.VITE_API_URL
@@ -25,6 +26,7 @@ export const useMyFetch = createFetch({
     afterFetch({ data, response }) {
       if (data.message && data.message.length > 0) {
         console.log('this a toast', data.message)
+        toast.success(data.message)
       }
       return { data, response }
     }
