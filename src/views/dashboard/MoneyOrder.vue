@@ -2,6 +2,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card'
 import PendingOrdersOverview from '@/components/money/PendingOrdersOverview.vue';
+import DepositTable from '@/components/money/DepositTable.vue';
 </script>
 
 <template>
@@ -10,7 +11,7 @@ import PendingOrdersOverview from '@/components/money/PendingOrdersOverview.vue'
     <Tabs default-value="overview" class="space-y-4">
       <TabsList>
         <TabsTrigger value="overview"> Tổng quan </TabsTrigger>
-        <TabsTrigger value="withdraws"> Lệnh rút </TabsTrigger>
+        <!-- <TabsTrigger value="withdraws"> Lệnh rút </TabsTrigger> -->
         <TabsTrigger value="deposits"> Lệnh nạp </TabsTrigger>
       </TabsList>
       <TabsContent value="overview" class="space-y-4">
@@ -122,6 +123,9 @@ import PendingOrdersOverview from '@/components/money/PendingOrdersOverview.vue'
             </CardContent>
           </Card>
         </div>
+      </TabsContent>
+      <TabsContent value="deposits" class="space-y-4">
+        <DepositTable />
       </TabsContent>
     </Tabs>
   </div>

@@ -55,6 +55,14 @@ const router = createRouter({
             title: 'User'
           } as RouteMeta & IRouteMeta
         },
+        {
+          path: 'admin',
+          name: 'AdminView',
+          component: () => import('@/views/dashboard/AdminList.vue'),
+          meta: {
+            title: 'Admins'
+          } as RouteMeta & IRouteMeta
+        },
         // {
         //   path: 'settings',
         //   name: 'settings_index',

@@ -58,14 +58,14 @@ const onSubmit = form.handleSubmit(async (val) => {
               <FormMessage />
             </FormItem>
           </FormField>
-          <div class="flex items-center space-x-2 my-4">
+          <!-- <div class="flex items-center space-x-2 my-4">
             <Checkbox id="terms" />
             <Label for="terms">Remember Me</Label>
-          </div>
-          <Button class="w-full" type="submit">Login</Button>
+          </div> -->
+          <Button class="w-full my-4" type="submit">Login</Button>
         </form>
       </CardContent>
-      <CardFooter>
+      <!-- <CardFooter>
         <div class="w-full">
           <div class="relative my-4">
             <div class="absolute inset-0 flex items-center">
@@ -80,7 +80,7 @@ const onSubmit = form.handleSubmit(async (val) => {
             <Button variant="outline" prepend-icon="Gitlab" class="w-full"> Gitlab </Button>
           </div>
         </div>
-      </CardFooter>
+      </CardFooter> -->
     </Card>
   </main>
 </template>

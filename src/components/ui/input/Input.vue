@@ -8,7 +8,7 @@ const props = defineProps<{
   modelValue?: string | number
   prependIcon?: string
   placeholder?: string
-  class?: HTMLAttributes['class'],
+  class?: HTMLAttributes['class'],type?: string
 }>()
 
 const emits = defineEmits<{
@@ -49,6 +49,7 @@ const onKeydown = (e: KeyboardEvent) => {
       @focus="onFocus"
       @blur="onBlur"
       @keydown="onKeydown"
+      :type="type"
     >
   </div>
 </template>
