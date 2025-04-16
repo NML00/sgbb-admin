@@ -20,7 +20,7 @@ export type BalanceOrder = {
 export const useBalanceStore = defineStore('balance', () => {
   const transactionParams = ref<PaginationParams>({
     page: 1,
-    limit: 10
+    limit: 10,
   })
   const apiRoute = 'balance'
   const query = new URLSearchParams(transactionParams.value as any).toString()

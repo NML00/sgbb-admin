@@ -61,6 +61,11 @@ const columns: ColumnDef<User>[] = [
       ])
   },
   {
+    accessorKey: 'rank',
+    header: 'Rank',
+    cell: ({ row }) => h('div', {}, row.original.ward)
+  },
+  {
     accessorKey: 'lastLogin',
     header: 'Last login',
     cell: ({ row }) => h('div', {}, myDateFormatter.format(new Date(row.original.lastLogin)))

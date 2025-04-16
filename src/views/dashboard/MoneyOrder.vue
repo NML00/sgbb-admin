@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card'
-import PendingOrdersOverview from '@/components/money/PendingOrdersOverview.vue';
-import DepositTable from '@/components/money/DepositTable.vue';
+import PendingOrdersOverview from '@/components/money/PendingOrdersOverview.vue'
+import DepositTable from '@/components/money/DepositTable.vue'
 </script>
 
 <template>
@@ -18,7 +18,7 @@ import DepositTable from '@/components/money/DepositTable.vue';
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle class="text-sm font-medium"> Tổng doanh thu </CardTitle>
+              <CardTitle class="text-sm font-medium"> Tổng doanh thu (Demo) </CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -39,7 +39,7 @@ import DepositTable from '@/components/money/DepositTable.vue';
           </Card>
           <Card>
             <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle class="text-sm font-medium"> Lệnh Rút </CardTitle>
+              <CardTitle class="text-sm font-medium"> Lệnh Rút (Demo) </CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -62,7 +62,7 @@ import DepositTable from '@/components/money/DepositTable.vue';
           </Card>
           <Card>
             <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle class="text-sm font-medium"> Sales </CardTitle>
+              <CardTitle class="text-sm font-medium"> Lệnh nạp (Demo) </CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -84,7 +84,7 @@ import DepositTable from '@/components/money/DepositTable.vue';
           </Card>
           <Card>
             <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle class="text-sm font-medium"> Active Now </CardTitle>
+              <CardTitle class="text-sm font-medium"> Lệnh đang đợi (Demo)</CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -107,7 +107,7 @@ import DepositTable from '@/components/money/DepositTable.vue';
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
           <Card class="col-span-4">
             <CardHeader>
-              <CardTitle>Lệnh đang chờ</CardTitle>
+              <CardTitle>Lệnh Gần nhất</CardTitle>
             </CardHeader>
             <CardContent class="pl-2">
               <PendingOrdersOverview />

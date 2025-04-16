@@ -27,6 +27,7 @@ import type { BalanceOrder } from '@/stores/balance'
 import { Card, CardContent, CardTitle } from '../ui/card'
 import CardHeader from '../ui/card/CardHeader.vue'
 import { Button } from '../ui/button'
+import VerifyOrderModal from './VerifyOrderModal.vue'
 
 const balanceParams = ref({
   page: 1,
@@ -65,6 +66,7 @@ const depositList = computed(() => {
                 </TableHead>
                 <TableHead>Số tiền</TableHead>
                 <TableHead>Mã giao dịch</TableHead>
+                <TableHead>Trạng thái</TableHead>
                 <TableHead class="text-right"> Ngày tạo lệnh </TableHead>
                 <TableHead class="text-center"> Action </TableHead>
               </TableRow>
@@ -78,7 +80,7 @@ const depositList = computed(() => {
                 <TableCell>
                   <div class="md:hidden font-bold">
                     <span class="text-(--vt-c-white-soft)">
-                      {{ entry.id }}
+                      {{ entry.userId }}
                     </span>
                   </div>
                   <div :title="entry.comment">
@@ -94,13 +96,18 @@ const depositList = computed(() => {
                   </div>
                 </TableCell>
                 <TableCell class="break-words max-w-[100px]">
-                    {{ entry.transaction }}
+                  {{ entry.transaction }}
+                </TableCell>
+                <TableCell>
+                  {{ entry.status }}
                 </TableCell>
                 <TableCell class="text-right">
                   {{ formateDate(entry.createdAt) }}
                 </TableCell>
                 <TableCell class="text-center">
-                  <Button prepend-icon="Check" class="px-2 py-1"> Duyệt lệnh </Button>
+                  <VerifyOrderModal v-if="entry.status === 'Pending'" :order="entry">
+                    <Button prepend-icon="Check" class="px-2 py-1"> Duyệt lệnh </Button>
+                  </VerifyOrderModal>
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -128,8 +135,7 @@ const depositList = computed(() => {
                 <button
                   class="w-6 h-6 p-0 hover:bg-primary/50 cursor-pointer rounded"
                   :class="{
-                    'bg-primary text-primary-foreground':
-                      item.value === page
+                    'bg-primary text-primary-foreground': item.value === page
                   }"
                 >
                   {{ item.value }}
