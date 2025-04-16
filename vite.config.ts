@@ -32,7 +32,7 @@ export default defineConfig(({ mode }) => {
     build: {
       minify: production,
       sourcemap: production,
-      outDir: path.resolve(rootDir, '.', 'dist'),
+      outDir: path.resolve(rootDir, '..', 'dist'),
     },
     publicDir: 'public'
   }
