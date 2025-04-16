@@ -93,7 +93,7 @@ const router = createRouter({
 })
 
 router.beforeEach((loc,_,next) => {
-  document.title = loc.meta.title as string
+  document.title = `SGBB - ${loc.meta.title}` as string
   const authStore = useAuthStore();
   if(loc.meta.authRequired && !authStore.isLogin) {
     return next('/login')
