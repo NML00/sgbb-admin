@@ -14,7 +14,7 @@ const props = defineProps<{
     <table :class="cn('w-full caption-bottom text-sm', props.class)">
       <slot />
     </table>
-    <div v-if="loading" class="loader absolute inset-0 bg-accent/30 text-accent-foreground flex items-center justify-center">
+    <div v-if="loading" class="loader absolute inset-0 bg-background/30 z-10 text-accent-foreground flex items-center justify-center">
       <LoadingIcon icon="spinning-circles" />
     </div>
   </div>
