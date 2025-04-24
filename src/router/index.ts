@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, type RouteMeta } from 'vue-router'
 import DashboardLayoutVue from '@/layouts/dashboard.vue'
 import { useAuthStore } from '@/stores/auth'
+import MoneyOrderLayout from '@/layouts/MoneyOrderLayout.vue'
 
 interface IRouteMeta {
   title: string
@@ -31,22 +32,6 @@ const router = createRouter({
         authRequired: true
       },
       children: [
-        // {
-        //   path: 'home',
-        //   name: 'home',
-        //   component: () => import('@/views/dashboard/examples/Home.vue'),
-        //   meta: {
-        //     title: 'Home'
-        //   } as RouteMeta & IRouteMeta
-        // },
-        // {
-        //   path: 'task',
-        //   name: 'tasks_index',
-        //   component: () => import('@/views/dashboard/examples/tasks/Index.vue'),
-        //   meta: {
-        //     title: 'Tasks'
-        //   } as RouteMeta & IRouteMeta
-        // },
         {
           path: 'user',
           name: 'user_index',
@@ -63,21 +48,25 @@ const router = createRouter({
             title: 'Admins'
           } as RouteMeta & IRouteMeta
         },
-        // {
-        //   path: 'settings',
-        //   name: 'settings_index',
-        //   component: () => import('@/views/dashboard/examples/settings/Index.vue'),
-        //   meta: {
-        //     title: 'Settings'
-        //   } as RouteMeta & IRouteMeta
-        // },
         {
           path: 'money',
-          name: 'money_index',
-          component: () => import('@/views/dashboard/MoneyOrder.vue'),
+          name: 'money_layout',
+          component: MoneyOrderLayout,
           meta: {
             title: 'Money'
-          } as RouteMeta & IRouteMeta
+          } as RouteMeta & IRouteMeta,
+          children: [
+            {
+              path: '',
+              name: 'MoneyOverview',
+              component: () => import('@/views/dashboard/money/MoneyOrderOverview.vue')
+            },
+            {
+              path: 'deposit',
+              name: 'MoneyDeposit',
+              component: () => import('@/views/dashboard/money/MoneyOrderDeposit.vue')
+            }
+          ]
         }
       ]
     },
@@ -92,15 +81,15 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((loc,_,next) => {
+router.beforeEach((loc, _, next) => {
   document.title = `SGBB - ${loc.meta.title}` as string
-  const authStore = useAuthStore();
-  if(loc.meta.authRequired && !authStore.isLogin) {
+  const authStore = useAuthStore()
+  if (loc.meta.authRequired && !authStore.isLogin) {
     return next('/login')
   }
-  if(loc.meta.guest && authStore.isLogin) {
+  if (loc.meta.guest && authStore.isLogin) {
     return next('/dashboard')
-  } 
+  }
   next()
 })
 

@@ -1,43 +1,14 @@
-<script setup lang="ts">
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { DateRangePicker } from '@/components/ui/daterange-picker';
-import RecentSales from '@/components/examples/RecentSales.vue';
-import Overview from '@/components/examples/Overview.vue';
+<script lang="ts" setup>
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card'
+import PendingOrdersOverview from '@/components/money/PendingOrdersOverview.vue'
 </script>
 
 <template>
-  <div>
-    <page-header title="Dashboard">
-      <div class="flex items-center space-x-2">
-        <DateRangePicker />
-        <Button>Download</Button>
-      </div>
-    </page-header>
-
-    <Tabs default-value="overview" class="space-y-4">
-      <TabsList>
-        <TabsTrigger value="overview">
-          Overview
-        </TabsTrigger>
-        <TabsTrigger value="analytics">
-          Analytics
-        </TabsTrigger>
-        <TabsTrigger value="reports">
-          Reports
-        </TabsTrigger>
-        <TabsTrigger value="notifications">
-          Notifications
-        </TabsTrigger>
-      </TabsList>
-      <TabsContent value="overview" class="space-y-4">
-        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+  <div class="space-y-4">
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle class="text-sm font-medium">
-                Total Revenue
-              </CardTitle>
+              <CardTitle class="text-sm font-medium"> Tổng doanh thu (Demo) </CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -52,19 +23,13 @@ import Overview from '@/components/examples/Overview.vue';
               </svg>
             </CardHeader>
             <CardContent>
-              <div class="text-2xl font-bold">
-                $45,231.89
-              </div>
-              <p class="text-xs text-muted-foreground">
-                +20.1% from last month
-              </p>
+              <div class="text-2xl font-bold">$45,231.89</div>
+              <p class="text-xs text-muted-foreground">+20.1% from last month</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle class="text-sm font-medium">
-                Subscriptions
-              </CardTitle>
+              <CardTitle class="text-sm font-medium"> Lệnh Rút (Demo) </CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -81,19 +46,13 @@ import Overview from '@/components/examples/Overview.vue';
               </svg>
             </CardHeader>
             <CardContent>
-              <div class="text-2xl font-bold">
-                +2350
-              </div>
-              <p class="text-xs text-muted-foreground">
-                +180.1% from last month
-              </p>
+              <div class="text-2xl font-bold">+2350</div>
+              <p class="text-xs text-muted-foreground">+180.1% from last month</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle class="text-sm font-medium">
-                Sales
-              </CardTitle>
+              <CardTitle class="text-sm font-medium"> Lệnh nạp (Demo) </CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -109,19 +68,13 @@ import Overview from '@/components/examples/Overview.vue';
               </svg>
             </CardHeader>
             <CardContent>
-              <div class="text-2xl font-bold">
-                +12,234
-              </div>
-              <p class="text-xs text-muted-foreground">
-                +19% from last month
-              </p>
+              <div class="text-2xl font-bold">+12,234</div>
+              <p class="text-xs text-muted-foreground">+19% from last month</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader class="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle class="text-sm font-medium">
-                Active Now
-              </CardTitle>
+              <CardTitle class="text-sm font-medium"> Lệnh đang đợi (Demo)</CardTitle>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -136,37 +89,29 @@ import Overview from '@/components/examples/Overview.vue';
               </svg>
             </CardHeader>
             <CardContent>
-              <div class="text-2xl font-bold">
-                +573
-              </div>
-              <p class="text-xs text-muted-foreground">
-                +201 since last hour
-              </p>
+              <div class="text-2xl font-bold">+573</div>
+              <p class="text-xs text-muted-foreground">+201 since last hour</p>
             </CardContent>
           </Card>
         </div>
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
           <Card class="col-span-4">
             <CardHeader>
-              <CardTitle>Overview</CardTitle>
+              <CardTitle>Lệnh Gần nhất</CardTitle>
             </CardHeader>
             <CardContent class="pl-2">
-              <Overview />
+              <PendingOrdersOverview />
             </CardContent>
           </Card>
           <Card class="col-span-3">
             <CardHeader>
               <CardTitle>Recent Sales</CardTitle>
-              <CardDescription>
-                You made 265 sales this month.
-              </CardDescription>
+              <CardDescription> You made 265 sales this month. </CardDescription>
             </CardHeader>
             <CardContent>
               <RecentSales />
             </CardContent>
           </Card>
         </div>
-      </TabsContent>
-    </Tabs>
   </div>
 </template>

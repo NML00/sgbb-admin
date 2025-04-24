@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, type HTMLAttributes } from 'vue'
-import { useVModel } from '@vueuse/core'
+import { useDebounceFn, useVModel } from '@vueuse/core'
 import { cn } from '@/lib/utils'
 
 const props = defineProps<{
@@ -8,7 +8,8 @@ const props = defineProps<{
   modelValue?: string | number
   prependIcon?: string
   placeholder?: string
-  class?: HTMLAttributes['class'],type?: string
+  class?: HTMLAttributes['class']
+  type?: string
 }>()
 
 const emits = defineEmits<{
@@ -20,36 +21,49 @@ const emits = defineEmits<{
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
-  defaultValue: props.defaultValue,
+  defaultValue: props.defaultValue
 })
-const isFocused = ref<boolean>(false);
+const isFocused = ref<boolean>(false)
 const onFocus = (e: FocusEvent) => {
-  isFocused.value = true;
+  isFocused.value = true
   emits('focus', { ...e, isFocused: isFocused.value })
-};
+}
 const onBlur = (e: FocusEvent) => {
-  isFocused.value = false;
+  isFocused.value = false
   emits('blur', { ...e, isFocused: isFocused.value })
-};
+}
 const onKeydown = (e: KeyboardEvent) => {
-  emits('keydown', e);
-};
+  emits('keydown', e)
+}
+const handleChange = useDebounceFn((event: Event) => {
+  if(event.target instanceof HTMLInputElement) {
+    modelValue.value = event.target.value || ''
+  }
+}, 600)
 </script>
 
 <template>
   <div class="relative">
-    <Icon v-if="prependIcon" :name="prependIcon" class="text-slate-500 absolute h-4 top-1/2 -translate-y-1/2 left-4"></Icon>
+    <Icon
+      v-if="prependIcon"
+      :name="prependIcon"
+      class="text-slate-500 absolute h-4 top-1/2 -translate-y-1/2 left-4"
+    ></Icon>
     <input
       :class="[
-        cn('flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50', props.class),
+        cn(
+          'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+          props.class
+        ),
         prependIcon ? 'pl-12 left-placeholder' : ''
       ]"
-      v-model="modelValue"
+      :value="modelValue"
       :placeholder="placeholder"
+      @input="handleChange"
       @focus="onFocus"
       @blur="onBlur"
       @keydown="onKeydown"
       :type="type"
-    >
+    />
   </div>
 </template>

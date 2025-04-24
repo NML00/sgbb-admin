@@ -28,17 +28,30 @@ import { Card, CardContent, CardTitle } from '../ui/card'
 import CardHeader from '../ui/card/CardHeader.vue'
 import { Button } from '../ui/button'
 import VerifyOrderModal from './VerifyOrderModal.vue'
+import { Input } from '../ui/input'
 
 const balanceParams = ref({
   page: 1,
   limit: 10,
   type: 'deposit',
-  sortBy: 'status:asc'
+  sortBy: 'status:asc',
+  status: 'Pending',
+  userId: ''
 })
 const apiRoute = 'balance'
 const fullApiRoute = computed(() => {
-  const query = new URLSearchParams(balanceParams.value as any).toString()
-  return `${apiRoute}?${query}`
+  const query = new URLSearchParams(balanceParams.value as any)
+  const delKeys: Array<string> = []
+  query.forEach((value, key) => {
+    if (value === undefined || value === 'undefined' || value === '') {
+      delKeys.push(key)
+    }
+  })
+  delKeys.forEach((el) => {
+    query.delete(el)
+  })
+
+  return `${apiRoute}?${query.toString()}`
 })
 
 const { data, isFetching: pending } = useMyFetch(fullApiRoute, { refetch: true }).json<
@@ -53,6 +66,53 @@ const depositList = computed(() => {
   <Card class="">
     <CardHeader>
       <CardTitle> Lệnh nạp (Deposit) </CardTitle>
+      <div class="flex justify-end flex-wrap gap-2 items-center">
+        <label>
+          <input
+            v-model="balanceParams.status"
+            type="radio"
+            name="status"
+            class="absolute opacity-0 w-0 h-0 cursor-pointer peer"
+            value="Pending"
+          />
+          <span
+            class="py-1 px-2 border border-1 border-foreground rounded cursor-pointer peer-checked:bg-foreground peer-checked:text-secondary font-semibold"
+          >
+            Chưa duyệt
+          </span>
+        </label>
+        <label>
+          <input
+            v-model="balanceParams.status"
+            type="radio"
+            name="status"
+            class="absolute opacity-0 w-0 h-0 cursor-pointer peer"
+            value="Success"
+          />
+          <span
+            class="py-1 px-2 border border-1 border-foreground rounded cursor-pointer peer-checked:bg-foreground peer-checked:text-secondary font-semibold"
+          >
+            Đã duyệt
+          </span>
+        </label>
+        <label>
+          <input
+            v-model="balanceParams.status"
+            type="radio"
+            name="status"
+            class="absolute opacity-0 w-0 h-0 cursor-pointer peer"
+            :value="undefined"
+          />
+          <span
+            class="py-1 px-2 border border-1 border-foreground rounded cursor-pointer peer-checked:bg-foreground peer-checked:text-secondary font-semibold"
+          >
+            Tất cả
+          </span>
+        </label>
+        <label>
+          <Input prepend-icon="User" v-model="balanceParams.userId" class="py-1" placeholder="ID người dùng" type="text" />
+        </label>
+      </div>
     </CardHeader>
     <CardContent>
       <div class="mt-4">
