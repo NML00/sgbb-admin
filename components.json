@@ -3,14 +3,16 @@
   "style": "new-york",
   "typescript": true,
   "tailwind": {
-    "config": "config/tailwind.config.js",
-    "css": "src/assets/index.css",
+    "config": "tailwind.config.ts",
+    "css": "src/assets/css/index.css",
     "baseColor": "neutral",
     "cssVariables": true
   },
-  "framework": "vite",
   "aliases": {
     "components": "@/components",
-    "utils": "@/lib/utils"
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "composables": "@/composables"
   }
 }

@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
 export type User = {
+  _id: string
   firstName: string
   lastName: string
   nickname: string
@@ -13,17 +14,26 @@ export type User = {
   district: string
   ward: string
   city: string
-  password: string
   isActivated: boolean
   isLocked: boolean
   lastLogin: string
   balance: number
   refId: string
-  backgrounds: Array<any>
+  backgrounds: Array<string>
   followers: number
-  isDeleted: false
+  isDeleted: boolean
   createdAt: string
-  id: string
+  updatedAt: string
+  __v: number
+  avatarPath: string
+  birthDay: string
+  gender: string
+  userVip: {
+    currentVipLevel: number
+    totalRecharge: number
+    remainingRecharge: number
+  }
+  rank: number
 }
 export const useUserStore = defineStore('user', () => {
   const userParams = ref<PaginationParams>({
@@ -35,11 +45,13 @@ export const useUserStore = defineStore('user', () => {
     const query = new URLSearchParams(userParams.value as any).toString()
     return `${apiRoute}?${query}`
   })
-  const { data: userList, execute: getUserList } = useMyFetch(
-    userAPIURL,
-    {
-      immediate: false
-    }
-  ).json<Response<ListData<User>>>()
-  return { userList, userParams, getUserList }
+  const {
+    data: userList,
+    execute: getUserList,
+    isFetching
+  } = useMyFetch(userAPIURL, {
+    immediate: false,
+    refetch: true
+  }).json<Response<ListData<User>>>()
+  return { userList, userParams, getUserList, isFetching }
 })

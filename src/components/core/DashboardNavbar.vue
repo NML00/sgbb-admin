@@ -60,7 +60,7 @@ const authStore = useAuthStore()
             class="border-0 flex items-center max-w-[200px] w-full justify-start"
           >
             <Avatar class="h-8 w-8">
-              <AvatarImage src="https://github.com/radix-vue.png"></AvatarImage>
+              <AvatarImage src=""></AvatarImage>
             </Avatar>
             <span class="ml-2 hidden md:flex justify-start flex-col items-start">
               <p class="mb-0">John Doe</p>

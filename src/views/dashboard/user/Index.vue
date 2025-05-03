@@ -7,13 +7,47 @@
         <Input prependIcon="User" />
       </label>
     </div> -->
-    <DataTable :columns="columns" :data="userList" />
+    <DataTable  :columns="columns" :data="userList?.results ?? []" :loading="isFetching" />
+    <Pagination
+          v-if="userList"
+          class="mt-4"
+          v-slot="{ page }"
+          :items-per-page="userList.limit"
+          :total="userList.totalResults"
+          show-edges
+          v-model:page="userParams.page"
+          :disabled="isFetching"
+        >
+          <PaginationList v-slot="{ items }" class="flex items-center gap-1">
+            <PaginationPrev class="w-6 h-6"></PaginationPrev>
+            <template v-for="(item, index) in items">
+              <PaginationListItem
+                v-if="item.type === 'page'"
+                :key="index"
+                :value="item.value"
+                as-child
+              >
+                <button
+                  class="w-6 h-6 p-0 hover:bg-primary/50 cursor-pointer rounded"
+                  :class="{
+                    'bg-primary text-primary-foreground': item.value === page
+                  }"
+                >
+                  {{ item.value }}
+                </button>
+              </PaginationListItem>
+              <PaginationEllipsis v-else :key="item.type" :index="index" />
+            </template>
+            <PaginationNext class="w-6 h-6"></PaginationNext>
+          </PaginationList>
+        </Pagination>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { DataTable, type ColumnDef } from '@/components/ui/data-table'
 import { Input } from '@/components/ui/input'
+import Icon from '@/components/ui/Icon.vue';
 import data from '@/assets/tasks.json'
 import { ref, h, computed } from 'vue'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -26,6 +60,16 @@ import AvatarImage from '@/components/ui/avatar/AvatarImage.vue'
 import { useUserStore, type User } from '@/stores/user'
 import { storeToRefs } from 'pinia'
 import { myDateFormatter } from '@/lib/utils'
+import MaleIcon from '@/components/icons/MaleIcon.vue';
+import FemaleIcon from '@/components/icons/FemaleIcon.vue';
+import {
+  Pagination,
+  PaginationEllipsis,
+  PaginationList,
+  PaginationListItem,
+  PaginationNext,
+  PaginationPrev
+} from '@/components/ui/pagination'
 
 const users = ref([
   {
@@ -39,10 +83,10 @@ const users = ref([
 ])
 
 const userStore = useUserStore()
-const { userList: dataResponse } = storeToRefs(userStore)
+const { userList: dataResponse, userParams, isFetching } = storeToRefs(userStore)
 
 const userList = computed(() => {
-  return dataResponse.value?.metaData?.results ?? []
+  return dataResponse.value?.metaData
 })
 const columns: ColumnDef<User>[] = [
   {
@@ -50,11 +94,12 @@ const columns: ColumnDef<User>[] = [
     header: 'User',
     cell: ({ row }) =>
       h('div', { class: 'flex gap-2' }, [
-        h(Avatar, {}, h(AvatarImage, { src: logo })),
+        h(Avatar, {}, h(AvatarImage, { src: row.original.avatarPath })),
         h('div', {}, [
           h('div', {}, [
             h('span', {}, [row.original.firstName, row.original.lastName]),
-            h('span', { class: 'text-muted-foreground white-space-pre' }, ` #${row.original.refId}`)
+            h('span', { class: 'text-muted-foreground white-space-pre' }, ` #${row.original.refId}`),
+            h(row.original.gender === "male" ? MaleIcon : FemaleIcon, { class: row.original.gender === "male" ? 'inline text-blue-600' : 'inline text-pink-600'})
           ]),
           h('div', {}, row.original.email)
         ])
@@ -63,7 +108,7 @@ const columns: ColumnDef<User>[] = [
   {
     accessorKey: 'rank',
     header: 'Rank',
-    cell: ({ row }) => h('div', {}, row.original.ward)
+    cell: ({ row }) => h('div', {}, row.original.rank)
   },
   {
     accessorKey: 'lastLogin',

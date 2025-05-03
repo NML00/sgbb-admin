@@ -18,6 +18,7 @@ import {
 const props = defineProps<{
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  loading?: boolean
 }>()
 
 const table = useVueTable({
@@ -29,7 +30,7 @@ const table = useVueTable({
 
 <template>
   <div class="border rounded-md">
-    <Table>
+    <Table :loading="loading">
       <TableHeader>
         <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
           <TableHead v-for="header in headerGroup.headers" :key="header.id">

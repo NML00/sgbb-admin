@@ -12,7 +12,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/dashboard/money'
+      redirect: {name: 'MoneyOverview'}
     },
     {
       path: '/login',
@@ -26,7 +26,7 @@ const router = createRouter({
     {
       path: '/dashboard',
       component: DashboardLayoutVue,
-      redirect: '/dashboard/money',
+      redirect: {name: 'MoneyOverview'},
       meta: {
         title: 'Dashboard',
         authRequired: true

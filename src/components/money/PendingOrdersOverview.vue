@@ -31,7 +31,7 @@ const list = computed(() => {
           <Icon
             v-else-if="item.status === 'Success'"
             name="CheckCheck"
-            size="16"
+            :size="16"
             class="text-emerald-500 inline leading-4 rounded-full bg-muted"
           />
         </div>

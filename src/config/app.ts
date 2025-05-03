@@ -30,12 +30,12 @@ export const APP_MENU: Record<string, { name: string; routes: IDashboardMenus[] 
       {
         title: 'Lệnh tiền',
         icon: 'CircleDollarSign',
-        path: 'money'
+        path: '/dashboard/money'
       },
       {
         title: 'Danh sách Admin',
         icon: 'Shield',
-        path: 'admin'
+        path: '/dashboard/admin'
       }
     ]
   },

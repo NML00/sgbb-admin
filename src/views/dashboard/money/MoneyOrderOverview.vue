@@ -109,7 +109,6 @@ import PendingOrdersOverview from '@/components/money/PendingOrdersOverview.vue'
               <CardDescription> You made 265 sales this month. </CardDescription>
             </CardHeader>
             <CardContent>
-              <RecentSales />
             </CardContent>
           </Card>
         </div>
