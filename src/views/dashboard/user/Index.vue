@@ -86,7 +86,7 @@ const { userList: dataResponse, userParams, isFetching } = storeToRefs(userStore
 const userList = computed(() => {
   return dataResponse.value?.metaData
 })
-const actionSetRank = async () => {}
+
 const columns: ColumnDef<User>[] = [
   {
     accessorKey: 'user',
@@ -127,7 +127,7 @@ const columns: ColumnDef<User>[] = [
     cell: ({ row }) =>
       h('div', { class: 'flex gap-2 items-center' }, [
         h(RankIcon, { rank: row.original.rank }),
-        h(SetUserRank, { user: row.original })
+        h(SetUserRank, { user: row.original, onUpdate: userStore.getUserList })
       ])
   },
   {

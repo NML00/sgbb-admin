@@ -7,6 +7,7 @@ import { useMyFetch } from '@/config/fetch'
 import { ref } from 'vue'
 
 const props = defineProps<{ user: User }>()
+const emit = defineEmits<{ update: [] }>()
 const open = ref(false)
 const { data, post } = useMyFetch(`/rank/set`, { immediate: false }).json()
 
@@ -17,6 +18,7 @@ const setRank = async (rank: string) => {
   }).execute()
 
   if (data.value.status) {
+    emit('update')
     open.value = false
   }
 }
