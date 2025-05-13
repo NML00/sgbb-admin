@@ -16,17 +16,6 @@ export const APP_MENU: Record<string, { name: string; routes: IDashboardMenus[] 
   main: {
     name: 'Core',
     routes: [
-      // {
-      //   title: 'Dashboard',
-      //   icon: 'LayoutDashboard',
-      //   path: 'home'
-      // },
-      // {
-      //   title: 'Tasks',
-      //   icon: 'ClipboardCheck',
-      //   path: 'task',
-      //   description: 'Manage Tasks'
-      // },
       {
         title: 'Lệnh tiền',
         icon: 'CircleDollarSign',
@@ -43,19 +32,21 @@ export const APP_MENU: Record<string, { name: string; routes: IDashboardMenus[] 
     name: 'General',
     routes: [
       {
-        path: 'user',
+        path: '/dashboard/user',
         title: 'User',
         icon: 'Users',
         description: 'Manage User'
       },
-      // {
-      //   path: 'settings',
-      //   title: 'Settings',
-      //   icon: 'Settings2',
-      //   description: 'Settings'
-      // }
     ]
   }
 }
-
+export const userRank = [
+  'bronze',
+  'silver',
+  'gold',
+  'platinum',
+  'diamond',
+  'highness',
+  'superior'
+]
 export const globalSearch = {}

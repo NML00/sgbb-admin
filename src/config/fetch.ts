@@ -33,7 +33,11 @@ export const useMyFetch = createFetch({
     },
     afterFetch({ data, response }) {
       if (data.message && data.message.length > 0) {
-        toast.success(data.message)
+        if (data.status) {
+          toast.success(data.message)
+        } else {
+          toast.error(data.message)
+        }
       }
       return { data, response }
     }

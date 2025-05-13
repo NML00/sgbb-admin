@@ -29,6 +29,7 @@ import CardHeader from '../ui/card/CardHeader.vue'
 import { Button } from '../ui/button'
 import VerifyOrderModal from './VerifyOrderModal.vue'
 import { Input } from '../ui/input'
+import UserEncapsulation from '../UserEncapsulation.vue'
 
 const balanceParams = ref({
   page: 1,
@@ -141,10 +142,8 @@ const depositList = computed(() => {
                 class="odd:bg-(--color-background-mute)"
               >
                 <TableCell>
-                  <div class="md:hidden font-bold">
-                    <span class="text-(--vt-c-white-soft)">
-                      {{ entry.userId }}
-                    </span>
+                  <div class=" font-bold">
+                    <UserEncapsulation :user-id="entry.userId" />
                   </div>
                   <div :title="entry.comment">
                     {{ entry.comment }}
