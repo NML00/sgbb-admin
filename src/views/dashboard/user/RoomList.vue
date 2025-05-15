@@ -26,6 +26,8 @@ import { useMyFetch, type ListData, type Response } from '@/config/fetch'
 import type { BalanceOrder } from '@/stores/balance'
 import type { Room } from '@/stores/room'
 import ListOfAvatars from '@/components/user/ListOfAvatars.vue'
+import ApproveRoom from '@/components/user/ApproveRoom.vue'
+import RejectRoom from '@/components/user/RejectRoom.vue'
 
 const balanceParams = ref({
   page: 1,
@@ -91,10 +93,12 @@ const roomList = computed(() => {
                   <div class="flex gap-2">
                     {{ entry.isApproved ? 'Đã xác nhận' : 'Chưa xác nhận' }}
                     <template v-if="!entry.isApproved">
-                      <button class="text-primary">
+                      <ApproveRoom :room="entry" class="text-primary">
                         <Icon name="Check" />
-                      </button>
-                      <Icon class="text-destructive" name="X" />
+                      </ApproveRoom>
+                      <RejectRoom :room="entry">
+                        <Icon class="text-destructive" name="X" />
+                      </RejectRoom>
                     </template>
                   </div>
                 </TableCell>

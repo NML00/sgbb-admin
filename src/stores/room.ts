@@ -13,14 +13,14 @@ export type Room = {
   isApproved: boolean
   createdAt: string
   updatedAt: string
-  memberDetails: Array<{
-    _id: string
-    nickname: string
-    avatarPath: string
-    gender: string
-  }>
+  memberDetails: Array<MinimizeMember>
 }
-
+export type MinimizeMember = {
+  _id: string
+  nickname: string
+  avatarPath: string
+  gender: string
+}
 export const useRoomStore = defineStore('room', () => {
   const { data } = useMyFetch('/rooms').json<Response<ListData<Room>>>()
   return { data }

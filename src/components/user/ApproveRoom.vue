@@ -11,7 +11,7 @@ import {
 } from '../ui/dialog'
 const props = defineProps<{ room: Room }>()
 
-const { data, patch } = useMyFetch(`/rooms/${props.room._id}/reject`, { immediate: false })
+const { data, patch } = useMyFetch(`/rooms/${props.room._id}/approve`, { immediate: false })
 </script>
 
 <template>
@@ -21,7 +21,7 @@ const { data, patch } = useMyFetch(`/rooms/${props.room._id}/reject`, { immediat
     </AlertDialogTrigger>
     <AlertDialogContent>
       <AlertDialogHeader>
-        <AlertDialogTitle> Từ chối yêu cầu Matching </AlertDialogTitle>
+        <AlertDialogTitle> Xác nhận yêu cầu Matching </AlertDialogTitle>
         <AlertDialogDescription>
           {{ room.name }}
         </AlertDialogDescription>
