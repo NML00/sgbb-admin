@@ -12,7 +12,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: {name: 'MoneyOverview'}
+      redirect: { name: 'MoneyOverview' }
     },
     {
       path: '/login',
@@ -26,7 +26,7 @@ const router = createRouter({
     {
       path: '/dashboard',
       component: DashboardLayoutVue,
-      redirect: {name: 'MoneyOverview'},
+      redirect: { name: 'MoneyOverview' },
       meta: {
         title: 'Dashboard',
         authRequired: true
@@ -38,6 +38,22 @@ const router = createRouter({
           component: () => import('@/views/dashboard/user/Index.vue'),
           meta: {
             title: 'User'
+          } as RouteMeta & IRouteMeta
+        },
+        {
+          path: 'sms',
+          name: 'UserSMS',
+          component: () => import('@/views/dashboard/user/SMSHistory.vue'),
+          meta: {
+            title: 'SNS'
+          } as RouteMeta & IRouteMeta
+        },
+        {
+          path: 'room',
+          name: 'MatchingRoom',
+          component: () => import('@/views/dashboard/user/RoomList.vue'),
+          meta: {
+            title: 'Matching'
           } as RouteMeta & IRouteMeta
         },
         {

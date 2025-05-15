@@ -7,6 +7,7 @@ import { useUserStore } from '@/stores/user'
 const store = useAppStore()
 const userStore = useUserStore()
 userStore.getUserList();
+
 </script>
 
 <template>

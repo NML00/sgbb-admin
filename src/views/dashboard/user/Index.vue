@@ -68,6 +68,7 @@ import {
 import UserEncapsulation from '@/components/UserEncapsulation.vue'
 import RankIcon from '@/components/icons/RankIcon.vue'
 import SetUserRank from '@/components/user/SetUserRank.vue'
+import { useRankStore } from '@/stores/rank'
 
 const users = ref([
   {
@@ -87,13 +88,18 @@ const userList = computed(() => {
   return dataResponse.value?.metaData
 })
 
+const rankStore = useRankStore()
+const { availableRanks } = storeToRefs(rankStore)
+const ranks = computed(() => {
+  return availableRanks.value?.metaData
+})
 const columns: ColumnDef<User>[] = [
   {
     accessorKey: 'user',
     header: 'User',
     cell: ({ row }) =>
       h('div', { class: 'flex gap-2 items-center' }, [
-        h(Avatar, {}, () => h(AvatarImage, { src: row.original.avatarPath },'')),
+        h(Avatar, {}, () => h(AvatarImage, { src: row.original.avatarPath }, '')),
         h('div', {}, [
           h('div', {}, [
             h('span', {}, [row.original.firstName, row.original.lastName]),
@@ -126,7 +132,11 @@ const columns: ColumnDef<User>[] = [
     header: 'Rank',
     cell: ({ row }) =>
       h('div', { class: 'flex gap-2 items-center' }, [
-        h(RankIcon, { rank: row.original.rank }),
+        h(
+          'div',
+          {},
+          ranks.value ? ranks.value.find((el) => el.level == row.original.rank)?.name : ''
+        ),
         h(SetUserRank, { user: row.original, onUpdate: userStore.getUserList })
       ])
   },

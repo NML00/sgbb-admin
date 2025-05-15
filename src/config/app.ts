@@ -29,14 +29,26 @@ export const APP_MENU: Record<string, { name: string; routes: IDashboardMenus[] 
     ]
   },
   settings: {
-    name: 'General',
+    name: 'User',
     routes: [
       {
         path: '/dashboard/user',
-        title: 'User',
+        title: 'User list',
         icon: 'Users',
         description: 'Manage User'
       },
+      {
+        path: '/dashboard/sms',
+        title: 'SMS list',
+        icon: 'MessageCircleMore',
+        description: 'SMS History'
+      },
+      {
+        path: '/dashboard/room',
+        title: 'Matching',
+        icon: 'MessageSquareHeart',
+        description: 'Matching room list'
+      }
     ]
   }
 }

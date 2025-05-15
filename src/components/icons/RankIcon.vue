@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import rank1 from '@/assets/videos/bronze.mp4'
-import rank2 from '@/assets/videos/silver.mp4'
-import rank3 from '@/assets/videos/gold.mp4'
-import rank4 from '@/assets/videos/platinum.mp4'
-import rank5 from '@/assets/videos/diamond.mp4'
-import rank6 from '@/assets/videos/highness.mp4'
-import rank7 from '@/assets/videos/emperor.mp4'
+import rank1 from '@/assets/images/rank/bronze.png'
+import rank2 from '@/assets/images/rank/silver.png'
+import rank3 from '@/assets/images/rank/gold.png'
+import rank4 from '@/assets/images/rank/platinum.png'
+import rank5 from '@/assets/images/rank/diamond.png'
+import rank6 from '@/assets/images/rank/highness.png'
+import rank7 from '@/assets/images/rank/emperor.png'
 import { computed } from 'vue'
 
 const ranklist = [rank1, rank2, rank3, rank4, rank5, rank6, rank7]
@@ -25,7 +25,5 @@ const rank = computed(() => {
 </script>
 
 <template>
-    <video :width="width" :height="height">
-        <source :src="rank" type="video/mp4"/>
-    </video>
+    <img :width="width" :height="height" :src="rank" />
 </template>

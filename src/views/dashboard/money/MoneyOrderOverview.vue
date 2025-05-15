@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card'
 import PendingOrdersOverview from '@/components/money/PendingOrdersOverview.vue'
+import MatchingListOverview from '@/components/user/MatchingListOverview.vue';
 </script>
 
 <template>
@@ -105,10 +106,11 @@ import PendingOrdersOverview from '@/components/money/PendingOrdersOverview.vue'
           </Card>
           <Card class="col-span-3">
             <CardHeader>
-              <CardTitle>Recent Sales</CardTitle>
+              <CardTitle>Lệnh matching</CardTitle>
               <CardDescription> You made 265 sales this month. </CardDescription>
             </CardHeader>
             <CardContent>
+              <MatchingListOverview />
             </CardContent>
           </Card>
         </div>
