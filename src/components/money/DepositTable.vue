@@ -111,7 +111,13 @@ const depositList = computed(() => {
           </span>
         </label>
         <label>
-          <Input prepend-icon="User" v-model="balanceParams.userId" class="py-1" placeholder="ID người dùng" type="text" />
+          <Input
+            prepend-icon="User"
+            v-model="balanceParams.userId"
+            class="py-1"
+            placeholder="ID người dùng"
+            type="text"
+          />
         </label>
       </div>
     </CardHeader>
@@ -142,7 +148,7 @@ const depositList = computed(() => {
                 class="odd:bg-(--color-background-mute)"
               >
                 <TableCell>
-                  <div class=" font-bold">
+                  <div class="font-bold">
                     <UserEncapsulation :user-id="entry.userId" />
                   </div>
                   <div :title="entry.comment">

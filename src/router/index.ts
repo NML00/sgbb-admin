@@ -45,7 +45,7 @@ const router = createRouter({
           name: 'UserSMS',
           component: () => import('@/views/dashboard/user/SMSHistory.vue'),
           meta: {
-            title: 'SNS'
+            title: 'SMS'
           } as RouteMeta & IRouteMeta
         },
         {

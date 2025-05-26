@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
 import {
   Table,
   TableBody,
@@ -21,9 +20,8 @@ import {
 
 import { computed, ref } from 'vue'
 import { formateDate, myDateFormatter, truncateNumber } from '@/lib/utils'
-import { useAuthStore } from '@/stores/auth'
 import { useMyFetch, type ListData, type Response } from '@/config/fetch'
-import type { BalanceOrder } from '@/stores/balance'
+import { Input } from '@/components/ui/input'
 
 export type SMS = {
   phone: string
@@ -32,16 +30,19 @@ export type SMS = {
   status: boolean
   createdAt: string
   id: string
+  otp: string
 }
 
-const balanceParams = ref({
+const smsParams = ref({
   page: 1,
   limit: 10,
-  userId: ''
+  userId: '',
+  phone: '',
+  type: ''
 })
 const apiRoute = 'user/history/sms'
 const fullApiRoute = computed(() => {
-  const query = new URLSearchParams(balanceParams.value as any)
+  const query = new URLSearchParams(smsParams.value as any)
   const delKeys: Array<string> = []
   query.forEach((value, key) => {
     if (value === undefined || value === 'undefined' || value === '') {
@@ -61,6 +62,7 @@ const { data, isFetching: pending } = useMyFetch(fullApiRoute, { refetch: true }
 const smsHistory = computed(() => {
   return data.value?.metaData
 })
+const showFilter = ref(true)
 </script>
 
 <template>
@@ -69,6 +71,35 @@ const smsHistory = computed(() => {
       <CardTitle> Lịch sử SMS </CardTitle>
     </CardHeader>
     <CardContent>
+      <div class="mt-4 bg-card text-card-foreground p-2 rounded">
+        <div class="text-xl flex gap-2 items-center">
+          Bộ lọc
+          <button
+            @click="showFilter = !showFilter"
+            class="hover:bg-accent/50 active:bg-accent rounded p-1"
+          >
+            <Icon
+              name="Triangle"
+              :class="{ 'rotate-180': !showFilter }"
+              class="w-[0.75em] h-[0.75em]"
+            />
+          </button>
+        </div>
+        <div :class="{ hidden: !showFilter }" class="flex flex-wrap items-center transition -mx-1">
+          <div class="basis-full sm:basis-1/2 md:basis-1/3 px-1">
+            <label>
+              Số điện thoại
+              <Input v-model="smsParams.phone" placeholder="Số điện thoại (e.g. 09012222222)" />
+            </label>
+          </div>
+          <div class="basis-full sm:basis-1/2 md:basis-1/3 px-1">
+            <label>
+              Loại
+              <Input v-model="smsParams.type" class="uppercase" placeholder="Loại OTP" />
+            </label>
+          </div>
+        </div>
+      </div>
       <div class="mt-4">
         <div class="border rounded">
           <Table class="" :loading="pending">
@@ -77,21 +108,26 @@ const smsHistory = computed(() => {
             </TableCaption>
             <TableHeader>
               <TableRow>
-                <TableHead> Số Điện thoại </TableHead>
-                <TableHead> Loại </TableHead>
+                <TableHead> Số Điện thoại
+                  <span class="sm:hidden"> / Loại</span>  
+                </TableHead>
+                <TableHead> Mã OTP </TableHead>
+                <TableHead class="hidden sm:table-cell"> Loại </TableHead>
                 <TableHead> Ngày tạo </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody v-if="smsHistory">
-              <TableRow
-                v-for="entry in smsHistory?.results"
-                :key="entry.id"
-                class="odd:bg-(--color-background-mute)"
-              >
+              <TableRow v-for="entry in smsHistory?.results" :key="entry.id" class="odd:bg-muted">
                 <TableCell>
                   {{ entry.phone }}
+                  <div class="sm:hidden">
+                    {{ entry.type }}
+                  </div>
                 </TableCell>
                 <TableCell>
+                  {{ entry.otp }}
+                </TableCell>
+                <TableCell class="hidden sm:table-cell">
                   {{ entry.type }}
                 </TableCell>
                 <TableCell>
@@ -108,7 +144,7 @@ const smsHistory = computed(() => {
           :items-per-page="smsHistory.limit"
           :total="smsHistory.totalResults"
           show-edges
-          v-model:page="balanceParams.page"
+          v-model:page="smsParams.page"
           :disabled="pending"
         >
           <PaginationList v-slot="{ items }" class="flex items-center gap-1">
