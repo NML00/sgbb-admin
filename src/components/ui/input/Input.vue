@@ -10,6 +10,7 @@ const props = defineProps<{
   placeholder?: string
   class?: HTMLAttributes['class']
   type?: string
+  required?: boolean
 }>()
 
 const emits = defineEmits<{
@@ -39,7 +40,7 @@ const handleChange = useDebounceFn((event: Event) => {
   if(event.target instanceof HTMLInputElement) {
     modelValue.value = event.target.value || ''
   }
-}, 600)
+}, 0  )
 </script>
 
 <template>
@@ -64,6 +65,7 @@ const handleChange = useDebounceFn((event: Event) => {
       @blur="onBlur"
       @keydown="onKeydown"
       :type="type"
+      :required="required"
     />
   </div>
 </template>

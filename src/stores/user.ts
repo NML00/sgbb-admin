@@ -33,7 +33,10 @@ export type User = {
     totalRecharge: number
     remainingRecharge: number
   }
-  rank: number
+  rank: number,
+  banReason?: string,
+  bannedBy?: string,
+  banDate?: string
 }
 export const useUserStore = defineStore('user', () => {
   const userParams = ref<PaginationParams>({

@@ -68,6 +68,7 @@ import {
 import UserEncapsulation from '@/components/UserEncapsulation.vue'
 import RankIcon from '@/components/icons/RankIcon.vue'
 import SetUserRank from '@/components/user/SetUserRank.vue'
+import BanUser from '@/components/user/BanUser.vue'
 import { useRankStore } from '@/stores/rank'
 
 const users = ref([
@@ -96,7 +97,7 @@ const ranks = computed(() => {
 const columns: ColumnDef<User>[] = [
   {
     accessorKey: 'user',
-    header: 'User',
+    header: 'Người dùng',
     cell: ({ row }) =>
       h('div', { class: 'flex gap-2 items-center' }, [
         h(Avatar, {}, () => h(AvatarImage, { src: row.original.avatarPath }, '')),
@@ -108,10 +109,17 @@ const columns: ColumnDef<User>[] = [
               { class: 'text-muted-foreground white-space-pre' },
               ` #${row.original.refId}`
             ),
-            h(row.original.gender === 'male' ? MaleIcon : FemaleIcon, {
-              class:
-                row.original.gender === 'male' ? 'inline text-blue-600' : 'inline text-pink-600'
-            })
+            h(
+              row.original.gender === 'male'
+                ? MaleIcon
+                : row.original.gender === 'female'
+                  ? FemaleIcon
+                  : Icon,
+              {
+                class:
+                  row.original.gender === 'male' ? 'inline text-blue-600' : 'inline text-pink-600'
+              }
+            )
           ]),
           h('div', {}, row.original.email)
         ]),
@@ -129,7 +137,7 @@ const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: 'rank',
-    header: 'Rank',
+    header: 'Cấp',
     cell: ({ row }) =>
       h('div', { class: 'flex gap-2 items-center' }, [
         h(
@@ -142,18 +150,28 @@ const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: 'lastLogin',
-    header: 'Last login',
+    header: 'Lần đăng nhập cuối',
     cell: ({ row }) => h('div', {}, myDateFormatter.format(new Date(row.original.lastLogin)))
   },
   {
     accessorKey: 'balance',
-    header: 'Balance',
+    header: 'Số dư',
     cell: ({ row }) => h('div', {}, row.original.balance)
+  },
+  {
+    accessorKey: 'action',
+    header: 'Quyền truy cập',
+    cell: ({ row }) =>
+      h('div', { class: 'flex gap-1' }, [
+        h(
+          BanUser,
+          { class: 'text-center', user: row.original, onUpdate: userStore.getUserList },
+          row.original.isLocked
+            ? h(Icon, { name: 'Ban', class: 'inline text-destructive cursor-pointer' })
+            : h(Icon, { name: 'BadgeCheck', class: 'inline text-emerald-500' })
+        ),
+        h('div', { class: 'line-clamp-3' }, [row.original.banReason])
+      ])
   }
-  // {
-  //   accessorKey: 'action',
-  //   header: 'Action',
-  //   cell: ({ row }) => h('div', {}, 'Block')
-  // }
 ]
 </script>
