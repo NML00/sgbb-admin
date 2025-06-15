@@ -19,16 +19,16 @@ const props = defineProps<{ list: MinimizeMember[] }>()
 <template>
   <Dialog>
     <DialogTrigger>
-      <div class="flex flex-row-reverse w-fit">
+      <div class="flex flex-row-reverse w-fit pr-6">
         <div
           v-for="member in props.list"
           :key="member._id"
-          class="w-[1rem] overflow-visible flex justify-start"
+          class="w-4 overflow-visible flex justify-start"
         >
-          <Avatar class="shadow-lg rounded-full">
+          <Avatar class="shadow-lg rounded-full z-[1]">
             <AvatarImage
-              class="z-[1] max-w-none rounded-full border border-border !w-auto aspect-square left-0"
-              :src="props.list[0].avatarPath"
+              class=" max-w-none rounded-full border border-border !w-auto aspect-square left-0"
+              :src="member.avatarPath"
             >
             </AvatarImage>
             <AvatarFallback> User </AvatarFallback>

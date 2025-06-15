@@ -11,6 +11,7 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import LoadingIcon from '../LoadingIcon.vue'
 
 export type ConversationMessage = {
   deletedByRole: string | null
@@ -32,7 +33,7 @@ const APIURL = computed(() => {
   return `messages/${props.room._id}/conversation`
 })
 
-const { data, execute } = useMyFetch(APIURL, { immediate: false }).json<
+const { data, execute, isFetching } = useMyFetch(APIURL, { immediate: false }).json<
   Response<ListData<ConversationMessage>>
 >()
 
@@ -66,14 +67,16 @@ const firstMemberID = computed(() => {
 <template>
   <Dialog>
     <DialogTrigger>
-      <button @click="execute()">Xem tin nhắn</button>
+      <button @click="execute()">
+        <Icon name="MessageSquareText" />
+      </button>
     </DialogTrigger>
     <DialogContent>
       <DialogHeader>
         <DialogTitle> </DialogTitle>
       </DialogHeader>
-      <div>
-        <div class="h-[400px] overflow-auto px-2 relative inset-shadow-sm" v-if="messagesData">
+      <div class="h-[400px] overflow-auto px-2 relative inset-shadow">
+        <div v-if="messagesData">
           <div
             v-for="(message, index) in messagesData?.results"
             :key="`${index}${message.content}`"
@@ -81,7 +84,7 @@ const firstMemberID = computed(() => {
           >
             <div
               class="flex gap-2 pt-1"
-              :class="{ 'flex-row-reverse': firstMemberID === message.sender }"
+              :class="{ 'flex-row-reverse text-right': firstMemberID === message.sender }"
             >
               <div class="shrink-0 h-10 w-10">
                 <Avatar
@@ -102,7 +105,19 @@ const firstMemberID = computed(() => {
             </div>
           </div>
         </div>
+        <div v-else-if="isFetching && !messagesData" class="h-full flex items-center justify-center">
+          <LoadingIcon class="w-8" icon="spinning-circles" />
+        </div>
+        <div v-else-if="!messagesData" class="h-full flex items-center justify-center text-xl font-semibold">
+          Không có dữ liệu tin nhắn phòng chat
+        </div>
       </div>
     </DialogContent>
   </Dialog>
 </template>
+
+<style scoped>
+.inset-shadow {
+  box-shadow: inset 0px 6px 6px -6px hsl(var(--border)), inset 0px -6px 6px -6px hsl(var(--border));
+}
+</style>

@@ -29,6 +29,7 @@ import ListOfAvatars from '@/components/user/ListOfAvatars.vue'
 import ApproveRoom from '@/components/user/ApproveRoom.vue'
 import RejectRoom from '@/components/user/RejectRoom.vue'
 import RoomMessageBox from '@/components/room/RoomMessageBox.vue'
+import LoadingIcon from '@/components/LoadingIcon.vue'
 
 const balanceParams = ref({
   page: 1,
@@ -69,6 +70,18 @@ const roomList = computed(() => {
         <div class="border rounded">
           <Table class="" :loading="pending">
             <TableCaption>
+              <div
+                v-if="pending && !roomList"
+                class="flex items-center justify-center min-h-[10rem]"
+              >
+                <LoadingIcon class="inline-block w-[2rem]" icon="spinning-circles"></LoadingIcon>
+              </div>
+              <div
+                class="flex items-center justify-center text-xl font-semibold min-h-[10rem]"
+                v-else-if="roomList && roomList?.results.length <= 0"
+              >
+                Không có dữ liệu phòng chat
+              </div>
               <div>Đây là các phòng chat trong hệ thống</div>
             </TableCaption>
             <TableHeader>
@@ -85,11 +98,13 @@ const roomList = computed(() => {
                 class="odd:bg-(--color-background-mute)"
               >
                 <TableCell>
-                  {{ entry.name }}
-                  <div>
-                    <ListOfAvatars :list="entry.memberDetails" />
+                  <div class="font-semibold max-w-[15rem] text-ellipsis overflow-hidden">
+                    {{ entry.name }}
                   </div>
-                  <RoomMessageBox :room="entry" />
+                  <div class="flex gap-2 items-center">
+                    <ListOfAvatars :list="entry.memberDetails" />
+                    <RoomMessageBox :room="entry" />
+                  </div>
                 </TableCell>
                 <TableCell>
                   <div class="flex gap-2">
