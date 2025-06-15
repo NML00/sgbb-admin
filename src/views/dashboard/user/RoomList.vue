@@ -28,6 +28,7 @@ import type { Room } from '@/stores/room'
 import ListOfAvatars from '@/components/user/ListOfAvatars.vue'
 import ApproveRoom from '@/components/user/ApproveRoom.vue'
 import RejectRoom from '@/components/user/RejectRoom.vue'
+import RoomMessageBox from '@/components/room/RoomMessageBox.vue'
 
 const balanceParams = ref({
   page: 1,
@@ -88,6 +89,7 @@ const roomList = computed(() => {
                   <div>
                     <ListOfAvatars :list="entry.memberDetails" />
                   </div>
+                  <RoomMessageBox :room="entry" />
                 </TableCell>
                 <TableCell>
                   <div class="flex gap-2">

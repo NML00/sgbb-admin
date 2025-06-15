@@ -25,3 +25,4 @@ export const useRoomStore = defineStore('room', () => {
   const { data } = useMyFetch('/rooms').json<Response<ListData<Room>>>()
   return { data }
 })
+
