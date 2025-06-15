@@ -1,0 +1,2 @@
+import{d as c,t as l,ak as p,p as d,o as u,e as s,al as m,m as f,x as i,w as _,y as g}from"./index-C0rbQkID.js";const h=c({__name:"DialogDescription",props:{asChild:{type:Boolean},as:{},class:{}},setup(o){const e=o,r=l(()=>{const{class:a,...t}=e;return t}),n=p(r);return(a,t)=>(u(),d(s(m),f(s(n),{class:s(i)("text-sm text-muted-foreground",e.class)}),{default:_(()=>[g(a.$slots,"default")]),_:3},16,["class"]))}});export{h as _};
+//# sourceMappingURL=DialogDescription.vue_vue_type_script_setup_true_lang-BQkOroar.js.map
