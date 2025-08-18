@@ -15,12 +15,33 @@ export type BalanceOrder = {
   fee: number
   createdAt: string
   id: string
+  userFullName: string
+  userInfo: {
+    _id: string
+    firstName: string
+    lastName: string
+    nickname: string
+    phone: string
+    balance: number
+    refId: string
+    avatarPath: string
+  },
+  adminEmail: string,
+  approvedAtFormatted: string,
+  createdAtFormatted: string,
+  approvedAt: string
+}
+interface BalanceQueries extends PaginationParams {
+  type?: string | string[]
+  sortBy?: string
 }
 
 export const useBalanceStore = defineStore('balance', () => {
-  const transactionParams = ref<PaginationParams>({
+  const transactionParams = ref<BalanceQueries>({
     page: 1,
     limit: 10,
+    sortBy: 'createdAt:desc',
+    type: 'deposit'
   })
   const apiRoute = 'balance'
   const query = new URLSearchParams(transactionParams.value as any).toString()

@@ -98,7 +98,7 @@ import MatchingListOverview from '@/components/user/MatchingListOverview.vue';
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
           <Card class="col-span-4">
             <CardHeader>
-              <CardTitle>Lệnh Gần nhất</CardTitle>
+              <CardTitle>Lệnh Nạp gần nhất</CardTitle>
             </CardHeader>
             <CardContent class="pl-2">
               <PendingOrdersOverview />
